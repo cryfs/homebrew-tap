@@ -3,7 +3,7 @@ require "open3"
 class Cryfs < Formula
   desc "CryFS encrypts your files, so you can safely store them anywhere. It works well together with cloud services like Dropbox, iCloud, OneDrive and others."
   homepage "https://www.cryfs.org"
-  url "https://github.com/cryfs/cryfs.git", tag: "0.9.3"
+  url "https://github.com/cryfs/cryfs.git", tag: "0.9.5"
   head "https://github.com/cryfs/cryfs.git", branch: "develop"
 
   depends_on "cmake" => :build
