@@ -1,5 +1,6 @@
 # homebrew-tap
-A tap to allow installing CryFS on Mac OS X using homebrew. This tap is not in use anymore, since the cryfs formula is now in homebrew-core.
+A tap to allow installing CryFS on Mac OS X using homebrew.
+**This tap is not in use anymore, since the cryfs formula is now in homebrew-core.**
 
 To install CryFS, just do:
 
