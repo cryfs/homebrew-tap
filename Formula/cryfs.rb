@@ -34,17 +34,6 @@ class OsxfuseRequirement < Requirement
       !File.symlink?("/usr/local/include/osxfuse")
   end
 
-  # env do
-  #  ENV.append_path "PKG_CONFIG_PATH",
-  #                  "#{HOMEBREW_PREFIX}/lib/pkgconfig:#{HOMEBREW_PREFIX}/opt/openssl@1.1/lib/pkgconfig"
-  #  ENV.append_path "BORG_OPENSSL_PREFIX", "#{HOMEBREW_PREFIX}/opt/openssl@1.1/"
-  #
-  #  unless HOMEBREW_PREFIX.to_s == "/usr/local"
-  #    ENV.append_path "HOMEBREW_LIBRARY_PATHS", "/usr/local/lib"
-  #    ENV.append_path "HOMEBREW_INCLUDE_PATHS", "/usr/local/include/fuse"
-  #  end
-  # end
-
   def message
     "osxfuse is required to build cryfs. Please run `brew install --cask osxfuse` first."
   end
@@ -61,6 +50,7 @@ class Cryfs < Formula
     on_macos do
       depends_on OsxfuseRequirement
     end
+    depends_on "boost"
   end
 
   bottle do
@@ -77,7 +67,6 @@ class Cryfs < Formula
 
   depends_on "cmake" => :build
   depends_on "ninja" => :build
-  depends_on "boost"
   depends_on "libomp"
   depends_on "openssl@1.1"
 
