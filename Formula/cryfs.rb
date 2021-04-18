@@ -42,6 +42,11 @@ class Cryfs < Formula
     depends_on "boost"
   end
 
+  bottle do
+    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.10.3"
+    sha256 cellar: :any, catalina: "abab942c49d1609b9cce8652bd2c681ccb4b9eb0449baaa3ad21d1dfcddc4bdc"
+  end
+
   head do
     url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
     on_macos do
