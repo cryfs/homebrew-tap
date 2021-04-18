@@ -1,10 +1,11 @@
-# homebrew-tap
-This repository was a tap to allow installing CryFS on Mac OS X using homebrew.
+# Cryfs Tap
 
-**This tap is not in use anymore, since the cryfs formula is now in homebrew-core.**
+## How do I install these formulae?
 
-To install CryFS, just do:
+`brew install cryfs/tap/<formula>`
 
-    $ brew install cryfs
-  
-(no need to use a tap)
+Or `brew tap cryfs/tap` and then `brew install <formula>`.
+
+## Documentation
+
+`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
