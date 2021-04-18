@@ -1,35 +1,90 @@
+class MacfuseRequirement < Requirement
+  fatal true
+
+  satisfy(build_env: false) { self.class.binary_osxfuse_installed? }
+
+  def self.binary_osxfuse_installed?
+    File.exist?("/usr/local/include/fuse/fuse.h") &&
+      !File.symlink?("/usr/local/include/fuse")
+  end
+
+  # env do
+  #  ENV.append_path "PKG_CONFIG_PATH",
+  #                  "#{HOMEBREW_PREFIX}/lib/pkgconfig:#{HOMEBREW_PREFIX}/opt/openssl@1.1/lib/pkgconfig"
+  #  ENV.append_path "BORG_OPENSSL_PREFIX", "#{HOMEBREW_PREFIX}/opt/openssl@1.1/"
+  #
+  #  unless HOMEBREW_PREFIX.to_s == "/usr/local"
+  #    ENV.append_path "HOMEBREW_LIBRARY_PATHS", "/usr/local/lib"
+  #    ENV.append_path "HOMEBREW_INCLUDE_PATHS", "/usr/local/include/fuse"
+  #  end
+  # end
+
+  def message
+    "macFUSE is required to build cryfs. Please run `brew install --cask macfuse` first."
+  end
+end
+
+class OsxfuseRequirement < Requirement
+  fatal true
+
+  satisfy(build_env: false) { self.class.binary_osxfuse_installed? }
+
+  def self.binary_osxfuse_installed?
+    File.exist?("/usr/local/include/osxfuse/fuse.h") &&
+      !File.symlink?("/usr/local/include/osxfuse")
+  end
+
+  # env do
+  #  ENV.append_path "PKG_CONFIG_PATH",
+  #                  "#{HOMEBREW_PREFIX}/lib/pkgconfig:#{HOMEBREW_PREFIX}/opt/openssl@1.1/lib/pkgconfig"
+  #  ENV.append_path "BORG_OPENSSL_PREFIX", "#{HOMEBREW_PREFIX}/opt/openssl@1.1/"
+  #
+  #  unless HOMEBREW_PREFIX.to_s == "/usr/local"
+  #    ENV.append_path "HOMEBREW_LIBRARY_PATHS", "/usr/local/lib"
+  #    ENV.append_path "HOMEBREW_INCLUDE_PATHS", "/usr/local/include/fuse"
+  #  end
+  # end
+
+  def message
+    "osxfuse is required to build cryfs. Please run `brew install --cask osxfuse` first."
+  end
+end
+
 class Cryfs < Formula
   desc "Encrypts your files so you can safely store them in Dropbox, iCloud, etc."
   homepage "https://www.cryfs.org"
   license "LGPL-3.0-or-later"
-  url "https://github.com/cryfs/cryfs/releases/download/0.10.3/cryfs-0.10.3.tar.xz"
-  sha256 "051d8d8e6b3751a088effcc4aedd39061be007c34dc1689a93430735193d979f"
 
   stable do
+    url "https://github.com/cryfs/cryfs/releases/download/0.10.3/cryfs-0.10.3.tar.xz"
+    sha256 "051d8d8e6b3751a088effcc4aedd39061be007c34dc1689a93430735193d979f"
     on_macos do
-      depends_on :osxfuse
+      depends_on OsxfuseRequirement
     end
   end
 
   head do
     url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
     on_macos do
-      depends_on :macfuse
+      depends_on MacfuseRequirement
     end
   end
+
+  depends_on "cmake" => :build
+  depends_on "ninja" => :build
+  depends_on "boost"
+  depends_on "libomp"
+  depends_on "openssl@1.1"
 
   on_linux do
     depends_on "libfuse"
   end
 
-  depends_on "cmake" => :build
-  depends_on "boost"
-  depends_on "libomp"
-  depends_on "openssl@1.1"
-
   def install
     configure_args = [
+      "-GNinja",
       "-DBUILD_TESTING=off",
+      "-DCMAKE_BUILD_TYPE=RelWithDebInfo",
     ]
 
     if build.head?
@@ -44,7 +99,7 @@ class Cryfs < Formula
     end
 
     system "cmake", ".", *configure_args, *std_cmake_args
-    system "make", "install"
+    system "ninja", "install"
   end
 
   test do
