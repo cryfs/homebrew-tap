@@ -63,6 +63,11 @@ class Cryfs < Formula
     end
   end
 
+  bottle do
+    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.10.3"
+    sha256 cellar: :any, catalina: "97b75e4e075a83a53cd6d59905713b44dac57e148c604b33bdb86ee6055b35e4"
+  end
+
   head do
     url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
     on_macos do
