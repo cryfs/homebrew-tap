@@ -8,7 +8,8 @@ jobs:
   test-bot:
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        #os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
@@ -26,6 +27,10 @@ jobs:
       - name: Install Homebrew Bundler RubyGems
         if: steps.cache.outputs.cache-hit != 'true'
         run: brew install-bundler-gems
+      
+      - name: Install osxfuse
+        if: ${{ matrix.os == 'macos-latest' }}
+        run: brew install --cask osxfuse
 
       - run: brew test-bot --only-cleanup-before
 
