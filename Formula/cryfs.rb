@@ -53,6 +53,7 @@ class Cryfs < Formula
       depends_on MacfuseRequirement
     end
     depends_on "conan" => :build
+    depends_on "pkg-config" => :build
   end
 
   depends_on "cmake" => :build
@@ -70,7 +71,11 @@ class Cryfs < Formula
       "-DBUILD_TESTING=off",
     ]
 
-    system "cmake", ".", *configure_args, *std_cmake_args
+    # macFUSE puts pkg-config into /usr/local/lib/pkgconfig, which is not included in
+    # homebrew's default PKG_CONFIG_PATH. We need to tell pkg-config about this path for our build
+    with_env "PKG_CONFIG_PATH" => ENV["PKG_CONFIG_PATH"] + ":/usr/local/lib/pkgconfig" do
+      system "cmake", ".", *configure_args, *std_cmake_args
+    end
     system "ninja", "install"
   end
 
