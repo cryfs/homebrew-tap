@@ -13,33 +13,14 @@ class MacfuseRequirement < Requirement
   end
 end
 
-class OsxfuseRequirement < Requirement
-  fatal true
-
-  satisfy(build_env: false) { self.class.binary_osxfuse_installed? }
-
-  def self.binary_osxfuse_installed?
-    File.exist?("/usr/local/include/osxfuse/fuse.h") &&
-      !File.symlink?("/usr/local/include/osxfuse")
-  end
-
-  def message
-    "osxfuse is required to build cryfs. Please run `brew install --cask osxfuse` first."
-  end
-end
-
 class Cryfs < Formula
   desc "Encrypts your files so you can safely store them in Dropbox, iCloud, etc."
   homepage "https://www.cryfs.org"
   license "LGPL-3.0-or-later"
 
   stable do
-    url "https://github.com/cryfs/cryfs/releases/download/0.10.3/cryfs-0.10.3.tar.xz"
-    sha256 "051d8d8e6b3751a088effcc4aedd39061be007c34dc1689a93430735193d979f"
-    on_macos do
-      depends_on OsxfuseRequirement
-    end
-    depends_on "boost"
+    url "https://github.com/cryfs/cryfs/releases/download/0.11.0/cryfs-0.11.0.tar.xz"
+    sha256 "5583f84f3fcbd4bdbdcc9bfe4bb10971b2fca80a67b539b340556b5de482b737"
   end
 
   bottle do
@@ -49,20 +30,21 @@ class Cryfs < Formula
 
   head do
     url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
-    on_macos do
-      depends_on MacfuseRequirement
-    end
-    depends_on "conan" => :build
-    depends_on "pkg-config" => :build
   end
 
   depends_on "cmake" => :build
+  depends_on "conan" => :build
   depends_on "ninja" => :build
+  depends_on "pkg-config" => :build
+  depends_on "curl"
   depends_on "libomp"
   depends_on "openssl@1.1"
 
+  on_macos do
+    depends_on MacfuseRequirement
+  end
   on_linux do
-    depends_on "libfuse"
+    depends_on "libfuse@2"
   end
 
   def install
