@@ -1,5 +1,6 @@
 # Cryfs Tap
 
+
 This is a homebrew tap to install CryFS ([repository](https://github.com/cryfs/cryfs), [homepage](https://cryfs.org)) on MacOS.
 
 ## How do I install CryFS using this tap?
