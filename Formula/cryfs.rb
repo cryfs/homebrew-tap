@@ -20,7 +20,7 @@ class Cryfs < Formula
 
   stable do
     url "https://github.com/cryfs/cryfs/releases/download/0.11.2/cryfs-0.11.2.tar.xz"
-    sha256 "55f139b07b9737851cc0d6e26c425a7debc2fabd2a62aa43ba56e5a33ca93ece"
+    sha256 "951ef565d37521df5586b00ed898f1cb76188739c27b9db866cc91ca14fdf1bd"
   end
 
   bottle do
