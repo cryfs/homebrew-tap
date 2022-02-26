@@ -19,12 +19,12 @@ class Cryfs < Formula
   license "LGPL-3.0-or-later"
 
   stable do
-    url "https://github.com/cryfs/cryfs/releases/download/0.11.1/cryfs-0.11.1.tar.xz"
+    url "https://github.com/cryfs/cryfs/releases/download/0.11.2/cryfs-0.11.2.tar.xz"
     sha256 "55f139b07b9737851cc0d6e26c425a7debc2fabd2a62aa43ba56e5a33ca93ece"
   end
 
   bottle do
-    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.1"
+    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.2"
     sha256 cellar: :any,                 big_sur:      "f4c2194d79645e9d382defdefa069db2b0ed4e2fd5ddcc008d437abcb46b73cc"
     sha256 cellar: :any_skip_relocation, x86_64_linux: "f0a7d3f34cc673fb6eb9f2f55e525f49fe7c1fab12be72472a29f0c7b40a491e"
   end
