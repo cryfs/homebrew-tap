@@ -77,10 +77,10 @@ class Cryfs < Formula
     # this test catches such things.
     mkdir "basedir"
     mkdir "mountdir"
-    on_macos do
+    if OS.mac?
       assert_match "Operation not permitted", pipe_output("#{bin}/cryfs -f basedir mountdir 2>&1", "password")
     end
-    on_linux do
+    if OS.linux?
       assert_match "CryFS Version", pipe_output("#{bin}/cryfs -f basedir mountdir 2>&1", "password")
     end
   end
