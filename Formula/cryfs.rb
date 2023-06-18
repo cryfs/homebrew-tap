@@ -34,7 +34,7 @@ class Cryfs < Formula
   end
 
   depends_on "cmake" => :build
-  depends_on "conan" => :build
+  depends_on "conan@1" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
   depends_on "curl"
