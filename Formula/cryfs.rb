@@ -33,7 +33,7 @@ class Cryfs < Formula
     url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
   end
 
-  depends_on "cmake" => :build
+  depends_on "cmake@3" => :build
   depends_on "conan@1" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
