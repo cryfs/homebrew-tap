@@ -40,7 +40,7 @@ class Cryfs < Formula
   depends_on "pkg-config" => :build
   depends_on "curl"
   depends_on "libomp"
-  depends_on "openssl@1.1"
+  depends_on "openssl@3"
 
   on_macos do
     depends_on MacfuseRequirement
