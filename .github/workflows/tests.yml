@@ -6,6 +6,9 @@ on:
   pull_request:
 jobs:
   test-bot:
+    env:
+      # Workaround for https://github.com/orgs/Homebrew/discussions/4580
+      HOMEBREW_NO_INSTALL_FROM_API: 1
     strategy:
       fail-fast: false
       matrix:
