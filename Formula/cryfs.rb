@@ -25,8 +25,9 @@ class Cryfs < Formula
 
   bottle do
     root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.3"
-    sha256 cellar: :any,                 big_sur:      "028603307ca180330b38e3c20e15555d883d5f814a522b4e25ce263a98295190"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "08f227fac17927b48bc04c4f1d8651d1ee8410d321f61818b16021cf5add32d3"
+    rebuild 1
+    sha256 cellar: :any,                 monterey:     "7bc4ef812fdb0c92604cd131e4f4a6447c507469b5fa6f9ec64a52c24e7626fc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "682fe844526da89ce04c1f8b6e71e4438ad7a8ca8ee1e3c7080df28a4b7f5cf2"
   end
 
   head do
