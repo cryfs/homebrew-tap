@@ -19,8 +19,8 @@ class Cryfs < Formula
   license "LGPL-3.0-or-later"
 
   stable do
-    url "https://github.com/cryfs/cryfs/releases/download/0.11.3/cryfs-0.11.3.tar.xz"
-    sha256 "18f68e0defdcb7985f4add17cc199b6653d5f2abc6c4d237a0d48ae91a6c81c0"
+    url "https://github.com/cryfs/cryfs/releases/download/0.11.4/cryfs-0.11.4.tar.xz"
+    sha256 "a71e2d56f9e7a907f4b425b74eeb8bef064ec49fa3a770ad8a02b4ec64c48828"
   end
 
   bottle do
