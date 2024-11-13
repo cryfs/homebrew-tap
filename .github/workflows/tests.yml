@@ -41,6 +41,6 @@ jobs:
         if: always() && github.event_name == 'pull_request'
         uses: actions/upload-artifact@main
         with:
-          name: bottles
+          name: bottles_${{runner.os}}
           path: '*.bottle.*'
           if-no-files-found: 'error'
