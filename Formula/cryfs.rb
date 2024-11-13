@@ -16,12 +16,10 @@ end
 class Cryfs < Formula
   desc "Encrypts your files so you can safely store them in Dropbox, iCloud, etc."
   homepage "https://www.cryfs.org"
+  url "https://github.com/cryfs/cryfs/releases/download/1.0.0/cryfs-1.0.0.tar.xz"
+  sha256 "b4652c0816a233a54269a11f72b179b570872105da94f1c9c2b4f08c39031469"
   license "LGPL-3.0-or-later"
-
-  stable do
-    url "https://github.com/cryfs/cryfs/releases/download/0.11.4/cryfs-0.11.4.tar.xz"
-    sha256 "a71e2d56f9e7a907f4b425b74eeb8bef064ec49fa3a770ad8a02b4ec64c48828"
-  end
+  head "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
 
   bottle do
     root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.4"
@@ -29,17 +27,11 @@ class Cryfs < Formula
     sha256 cellar: :any_skip_relocation, x86_64_linux: "5edece59320ba4423ea91505425b7933c535a7be7ae2c10fc177c3c903ba571c"
   end
 
-  head do
-    url "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
-  end
-
   depends_on "cmake" => :build
-  depends_on "conan@1" => :build
+  depends_on "conan@2" => :build
   depends_on "ninja" => :build
   depends_on "pkg-config" => :build
-  depends_on "curl"
   depends_on "libomp"
-  depends_on "openssl@3"
 
   on_macos do
     depends_on MacfuseRequirement
@@ -49,17 +41,24 @@ class Cryfs < Formula
   end
 
   def install
-    configure_args = [
-      "-GNinja",
-      "-DBUILD_TESTING=off",
-    ]
-
     # macFUSE puts pkg-config into /usr/local/lib/pkgconfig, which is not included in
     # homebrew's default PKG_CONFIG_PATH. We need to tell pkg-config about this path for our build
-    with_env "PKG_CONFIG_PATH" => ENV["PKG_CONFIG_PATH"] + ":/usr/local/lib/pkgconfig" do
-      system "cmake", ".", *configure_args, *std_cmake_args
+    pkg_config_path = ENV["PKG_CONFIG_PATH"]
+    if pkg_config_path.nil?
+      pkg_config_path = "/usr/local/lib/pkgconfig"
+    else
+      pkg_config_path += ":/usr/local/lib/pkgconfig"
     end
-    system "ninja", "install"
+    with_env "PKG_CONFIG_PATH" => pkg_config_path do
+      system "conan", "profile", "detect"
+      system "conan", "build", ".",
+        "--build=missing",
+        "-s", "build_type=RelWithDebInfo",
+        "-o", "&:build_tests=False"
+      chdir "build/RelWithDebInfo" do
+        system "cmake", "--install", ".", "--prefix", prefix
+      end
+    end
   end
 
   test do
