@@ -34,21 +34,8 @@ jobs:
         run: brew install --cask macfuse
         shell: bash
 
-      - run: brew test-bot --only-cleanup-before
+      - run: brew test-bot
         shell: bash
-
-      - run: brew test-bot --only-setup
-        shell: bash
-
-      - run: brew test-bot --only-tap-syntax
-        shell: bash
-
-      - run: brew test-bot --only-formulae
-        if: github.event_name == 'pull_request'
-        shell: bash
-
-      #- run: brew test-bot
-      #  shell: bash
 
       - name: Upload bottles as artifact
         if: always() && github.event_name == 'pull_request'
