@@ -21,6 +21,7 @@ class Cryfs < Formula
   license "LGPL-3.0-or-later"
   head "https://github.com/cryfs/cryfs.git", branch: "develop", shallow: false
 
+  # Don't manually update anything in the `bottle` section, it will be updated by CI
   bottle do
     root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.4"
     sha256 cellar: :any,                 monterey:     "4186f9a13b6461adc640c4842b9164f833f8b63534bded21b050245579a50173"

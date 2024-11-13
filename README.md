@@ -15,6 +15,7 @@ Or `brew tap cryfs/tap` and then `brew install cryfs`.
 ## How do I update this formula to a new version?
 
 To update, don't just merge into the main branch, but create a PR.
+Don't update the bottle section, just update the download URL.
 The PR CI will build bottles and store them as build artifacts.
 
 Once the PR passes CI, label it with the "pr-pull" label.
