@@ -23,9 +23,9 @@ class Cryfs < Formula
 
   # Don't manually update anything in the `bottle` section, it will be updated by CI
   bottle do
-    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-0.11.4"
-    sha256 cellar: :any,                 monterey:     "4186f9a13b6461adc640c4842b9164f833f8b63534bded21b050245579a50173"
-    sha256 cellar: :any_skip_relocation, x86_64_linux: "5edece59320ba4423ea91505425b7933c535a7be7ae2c10fc177c3c903ba571c"
+    root_url "https://github.com/cryfs/homebrew-tap/releases/download/cryfs-1.0.0"
+    sha256 cellar: :any,                 arm64_sonoma: "c623a86ffd9dfd1f439ad80fb90b74761d2a6597a82c525262152ad1aa7a5094"
+    sha256 cellar: :any_skip_relocation, x86_64_linux: "6582fcac64404b29e136f7382c23b3bbcd1afd7590beae58b136ba49a2db3631"
   end
 
   depends_on "cmake" => :build
