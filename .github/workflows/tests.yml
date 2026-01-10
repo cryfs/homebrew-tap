@@ -35,17 +35,18 @@ jobs:
         shell: bash
 
       # Create test-bot home directory to prevent RuboCop File.realpath errors
-      # test-bot sets HOME=./home/ but RuboCop tries to resolve paths before it's created
+      # test-bot sets HOME=./home/ internally but RuboCop tries to resolve it before creation
       # See: https://github.com/rubocop/rubocop/issues/11725
       - name: Create test-bot home directory
-        run: mkdir -p home/.cache
+        run: |
+          mkdir -p home/.cache
+          ls -la home/
         shell: bash
 
       - name: Run brew test-bot
         run: brew test-bot
         env:
           XDG_CACHE_HOME: /tmp
-          HOME: ${{ github.workspace }}/home
         shell: bash
 
       - name: Upload bottles as artifact
