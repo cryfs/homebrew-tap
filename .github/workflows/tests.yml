@@ -34,7 +34,18 @@ jobs:
         run: brew install --cask macfuse
         shell: bash
 
-      - run: brew test-bot
+      # Create test-bot home directory to prevent RuboCop File.realpath errors
+      # test-bot sets HOME=./home/ but RuboCop tries to resolve paths before it's created
+      # See: https://github.com/rubocop/rubocop/issues/11725
+      - name: Create test-bot home directory
+        run: mkdir -p home/.cache
+        shell: bash
+
+      - name: Run brew test-bot
+        run: brew test-bot
+        env:
+          XDG_CACHE_HOME: /tmp
+          HOME: ${{ github.workspace }}/home
         shell: bash
 
       - name: Upload bottles as artifact
